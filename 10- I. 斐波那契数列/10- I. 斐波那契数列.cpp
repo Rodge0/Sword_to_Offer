@@ -8,10 +8,10 @@
 
 using namespace std;
 
-int fib(int n) {
+int fib1(int n) {
     if (n < 0) return 0;
     long modd = 1e9 + 7;
-    vector<int> fibo(101);
+    vector<int> fibo(n + 1);
 
     fibo[0] = 0;
     fibo[1] = 1;
@@ -21,6 +21,19 @@ int fib(int n) {
     }
 
     return fibo[n];
+}
+
+// 优化空间
+int fib(int n) {
+    if (n <= 0) return 0;
+    if (n == 1 || n == 2) return 1;
+    int f1 = 0, f2 = 1;
+    for (int i = 1; i < n; i++) {
+        int temp = f2;
+        f2 = (f1 + f2) % 1000000007;
+        f1 = temp;
+    }
+    return f2;
 }
 
 int main()
